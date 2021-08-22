@@ -8,7 +8,7 @@
 
 2.	Use POSTMAN to request the Genesis block
 
- <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-02.svg"
+ <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-02.svg">
  
 3.	Make your first request of ownership sending your wallet address
 
