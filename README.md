@@ -16,7 +16,7 @@
 
 3.	Make Ownership Request using your Wallet Address `http://localhost:8000/requestValidation`
 
- 
+ <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-03.svg">
 
 
 4.	Sign the message with your Bitcoin Wallet using Electrum
