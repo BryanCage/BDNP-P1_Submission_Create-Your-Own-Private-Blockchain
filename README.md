@@ -1,4 +1,4 @@
-<h3>Postman Collections Included for Download: </h3> => <p>POSTMAN_PrivateBlockchain.postman_collection</p>
+<h3>Postman Collections: POSTMAN_PrivateBlockchain.postman_collection</h3>
 
 # Udacity: Blockchain Developer Nanodegree Program
 
