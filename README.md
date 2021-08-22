@@ -4,7 +4,7 @@
 
 <strong>Project One Submisson: Create Your Own Private Blockchain</strong> - <strong style="color: dodgerblue;">(Bryan Cage)</strong>
 
-1.	Run your application using the command node app.js. Image of browser running http://localhost:8000
+1.	Run your application using the command node app.js. Image of browser running `http://localhost:8000/block/height/0`
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-01.svg" style="margin-bottom: 15px;">
 
