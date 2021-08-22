@@ -9,27 +9,27 @@
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-01.svg" style="margin-bottom: 15px;">
 
 
-2.	Use POSTMAN to request the Genesis Block
+2.	Use POSTMAN to request the Genesis Block `http://localhost:8000/block/height/0`
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-02.svg">
  
 
-3.	Make your first request of ownership sending your wallet address
+3.	Make Ownership Request using your Wallet Address `http://localhost:8000/requestValidation`
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-03.svg">
 
 
-4.	Sign the message with your Wallet:
+4.	Sign the message with your Bitcoin Wallet using Electrum
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-04.svg">
    
 
-5.	API Endpoint for Submitting a New Star
+5.	API Endpoint for Submitting a New Star `http://localhost:8000/submitstar`
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-05.svg">
    
 
-6.	Retrieve Stars Owned by Bryan Cage
+6.	Retrieve Stars Owned by Bryan Cage `http://localhost:8000/blocks/bc1qvc32uhxaml75z48ue3zdqs6vqlt7d6qmyza43q`
 
 <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-06.svg">
  
