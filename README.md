@@ -24,12 +24,12 @@
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-04.svg">
    
 
-5.	Submit your Star
+5.	API Endpoint for Submitting a New Star
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-05.svg">
    
 
-6.	Retrieve Stars owned by me
+6.	Retrieve Stars Owned by Bryan Cage
 
 <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-06.svg">
  
