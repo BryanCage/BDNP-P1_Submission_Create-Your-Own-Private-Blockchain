@@ -1,4 +1,4 @@
-<h3>Postman Collections:   <a href="">POSTMAN.postman_collection</a></h3>
+<h3>Postman Collection:   <a href="">POSTMAN.postman_collection</a></h3>
 
 # Udacity: Blockchain Developer Nanodegree Program
 
