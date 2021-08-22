@@ -6,7 +6,7 @@
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-01.svg" style="margin-bottom: 15px;">
 
-2.	Use POSTMAN to request the Genesis block
+2.	Use POSTMAN to request the Genesis Block
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-02.svg">
  
