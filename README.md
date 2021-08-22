@@ -1,4 +1,4 @@
-# POSTMAN Collection Included: BDNP- Project One - Create Your Own Private Blockchain .postman_collection
+Instructions: I have included a POSTMAN Collection in the above file directory named PostmanCollection.postman_collection
 
 # Udacity: Blockchain Developer Nanodegree Program
 
