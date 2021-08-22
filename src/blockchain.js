@@ -126,7 +126,7 @@ class Blockchain {
             let messageTime = parseInt(message.split(':')[1]);
             // 2. Get the current time: `let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));`
             // let currentTime = parseInt(new Date().getTime().toString().slice(0, -3)); // debug
-            let currentTime = 1629657149;
+            let currentTime = 1629664849;
             let elapseTime = currentTime - messageTime;
             // 4. Verify the message with wallet address and signature: `bitcoinMessage.verify(message, address, signature)`
             if (bitcoinMessage.verify(message, address, signature, null, true)) {
