@@ -6,22 +6,27 @@
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-01.svg" style="margin-bottom: 15px;">
 
+
 2.	Use POSTMAN to request the Genesis Block
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-02.svg">
  
+
 3.	Make your first request of ownership sending your wallet address
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-03.svg">
+
 
 4.	Sign the message with your Wallet:
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-04.svg">
    
+
 5.	Submit your Star
 
  <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-05.svg">
    
+
 6.	Retrieve Stars owned by me
 
 <img src="https://blockchain.iotserver.website/images/Project_One_Submission_Image-06.svg">
