@@ -1,4 +1,4 @@
-Instructions: I have included a POSTMAN Collection in the above file directory named PostmanCollection.postman_collection
+<h3>Postman Collections Included for Download: </h3> => <h4>POSTMAN_PrivateBlockchain.postman_collection</h4>
 
 # Udacity: Blockchain Developer Nanodegree Program
 
