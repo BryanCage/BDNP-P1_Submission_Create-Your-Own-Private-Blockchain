@@ -1,4 +1,4 @@
-<h3>Postman Collection:   <a href="">POSTMAN.postman_collection</a></h3>
+<h3>Postman Collection:   <a href="https://github.com/BryanCage/BDNP-P1_Submission_Create-Your-Own-Private-Blockchain/blob/main/POSTMAN.postman_collection.json">POSTMAN.postman_collection</a></h3>
 
 # Udacity: Blockchain Developer Nanodegree Program
 
