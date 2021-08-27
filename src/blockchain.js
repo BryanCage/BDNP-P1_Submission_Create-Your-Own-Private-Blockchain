@@ -11,6 +11,20 @@
 const SHA256 = require('crypto-js/sha256');
 const BlockClass = require('./block.js');
 const bitcoinMessage = require('bitcoinjs-message');
+const logger = require('./logger');
+const chalk = require('chalk');
+
+process.on(
+    "unhandledRejection",
+    function handleWarning(reason, promise) {
+
+        console.log(chalk.red.bold("[PROCESS] Unhandled Promise Rejection"));
+        console.log(chalk.red.bold("- - - - - - - - - - - - - - - - - - -"));
+        console.log(reason, promise);
+        console.log(chalk.red.bold("- -"));
+
+    }
+);
 
 class Blockchain {
 
@@ -36,7 +50,8 @@ class Blockchain {
     async initializeChain() {
         if (this.height === -1) {
             let block = new BlockClass.Block({data: 'Genesis Block'});
-            await this._addBlock(block);
+            await this._addBlock(block)
+            console.log(this.chain);
         }
     }
 
@@ -62,28 +77,35 @@ class Blockchain {
      * that this method is a private method.
      */
     _addBlock(block) {
-        let self = this;
-        let errorLog = {
-            "blockTampering": [],
-            "blockHashLinkEquality": []
-        };
+        let self = this; // refers to blockchain
+
         return new Promise(async (resolve, reject) => {
-            this.height = this.chain.length;
-            block.height = await this.getChainHeight();
+            let height = await self.getChainHeight();
             block.time = new Date().getTime().toString().slice(0, -3);
-            if (this.chain.length > 0) {
-                // previous block hash
-                block.previousBlockHash = this.chain[this.chain.length - 1].hash;
+
+            if (height >= 0) {
+                logger.log({
+                    level: 'block',
+                    message: block
+                });
+                block.height = height + 1;
+                // assign previous block hash to current block
+                block.previousBlockHash = self.chain[self.chain.length - 1].hash;
+                block.hash = SHA256(JSON.stringify(block)).toString();
+                self.chain.push(block);
+                self.height = self.chain.length - 1;
+                resolve(block);
+            } else {
+                // this code block will only execute during initialization
+                // of Genesis Block because height is initially -1
+                block.height = height + 1;
+                block.hash = SHA256(JSON.stringify(block)).toString();
+                self.chain.push(block);
+                // sets self.height to 0; all subsequent calls to _addBlock will
+                // never enter this code block due to self.height > -1;
+                self.height = self.chain.length - 1;
+                resolve(block);
             }
-            // SHA256 requires a string of data
-            block.hash = SHA256(JSON.stringify(block)).toString();
-            // add block to chain
-            this.chain.push(block);
-            resolve(block);
-            errorLog = await self.validateChain();
-            console.log(this.chain);
-            console.log("Error Logs: ", errorLog)
-            reject("An error occurred - Block not added to chain");
         });
     }
 
@@ -97,7 +119,7 @@ class Blockchain {
      */
     requestMessageOwnershipVerification(address) {
         return new Promise((resolve) => {
-            resolve(`bc1qvc32uhxaml75z48ue3zdqs6vqlt7d6qmyza43q:${new Date().getTime().toString().slice(0, -3)}:starRegistry`);
+            resolve(`${address}:${new Date().getTime().toString().slice(0, -3)}:starRegistry`);
         });
     }
 
@@ -120,7 +142,7 @@ class Blockchain {
      */
     submitStar(address, message, signature, star) {
         let self = this;
-        // message = "not correct message"; // debug
+
         return new Promise(async (resolve, reject) => {
             // 1. Get the time from the message sent as a parameter example: `parseInt(message.split(':')[1])`
             let messageTime = parseInt(message.split(':')[1]);
@@ -145,15 +167,12 @@ class Blockchain {
                     });
                     // 6. Resolve with the block added.
                     resolve(block);
-                    // console.log("Message Verified");
-                    // console.log("Address: ",address, "\nMessage: ",message, "\nSignature: ",signature, "\nStar: ",star);
                     await this._addBlock(block);
                 } else {
-                // reject("Error occurred - New Star not added - No New Block Appended to Chain.");
                     reject({error: "Elapsed Time greater than 5 minutes - New Block could not be appended to the blockchain"});
                 }
             } else {
-                    reject({error: "Message could not be verified with signature - New Block with Star could not be appended to blockchain."})
+                reject({error: "Message could not be verified with signature - New Block with Star could not be appended to blockchain."})
             }
         });
     }
@@ -222,37 +241,49 @@ class Blockchain {
      */
     validateChain() {
         let self = this;
-        let errorLog = {
-            "blockTampering": [],
-            "blockHashLinkEquality": []
-        };
+        let errorLog = [];
+        let bc_index = 0;
+
         return new Promise(async (resolve, reject) => {
 
-            for (let i = 0; i < this.chain.length; i++) {
-                if(i > 0) {
-                    if (this.chain[i].previousBlockHash !== this.chain[i - 1].hash) {
-                        errorLog["blockHashLinkEquality"].push(`Block [${this.chain[i].height}]: Block Hash does not equal previousBlockHash.`);
-                    }
-                    let valid_tamper = self.chain[i].validate();
-                    if (!valid_tamper) {
-                        errorLog["blockTampering"].push(`Block [${this.chain[i].height}]: Current and Recalculated Hashes do not match.`);
-                    }
-                } else {
-                    let valid_tamper = self.chain[0].validate();
-                    if(!valid_tamper){
-                        errorLog["blockTampering"].push(`Genesis Block: Current Hash and Recalculated Hash do not match.`)
+            // Create an array to store returned Promises to be used with
+            // Promise.allSettled()
+            let blockTampPromises = [];
+
+            // Loop through all blocks in chain
+            self.chain.forEach(block => {
+                // .validate() returns a Promise resolved as bool value and pushed
+                //  to array of Promises called blockTampPromises
+                blockTampPromises.push(block.validate());
+                if (block.height > 0) {
+                    if (this.chain[bc_index].previousBlockHash !== this.chain[bc_index - 1].hash) {
+                        errorLog.push(`Block [${this.chain[bc_index].height}]: Block hash does not equal previous block's hash.`);
+                    } else {
+                        errorLog.push(`Block [${this.chain[bc_index].height}]: Block hash is equal to previous block's hash`)
                     }
                 }
-            }
-            if (errorLog["blockTampering"].length === 0) {
-                errorLog["blockTampering"].push("No block tampering detected.");
-            }
-            if (errorLog["blockHashLinkEquality"].length === 0) {
-                errorLog["blockHashLinkEquality"].push("No invalid hash links between blocks detected.");
-            }
-            resolve(errorLog);
+                bc_index++;
+            });
+            // Loop through array of returned bool Promises
+            Promise.allSettled(blockTampPromises).then((promises) => {
+                bc_index = 0;
+                promises.forEach(valid => {
+                    if (!valid) {
+                        errorLog.push(`Validation Error: Block[${bc_index}] Tampered.`)
+                    } else {
+                        errorLog.push(`Block[${bc_index}] Validated: No tampering detected.`);
+                    }
+                    bc_index++;
+                });
+                resolve(errorLog);
+            }).catch((error) => {
+                logger.log({
+                    level: 'error',
+                    message: error
+                });
+            });
         });
     }
 }
 
-module.exports.Blockchain = Blockchain;   
+module.exports.Blockchain = Blockchain;

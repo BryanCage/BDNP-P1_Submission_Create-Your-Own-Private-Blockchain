@@ -123,10 +123,14 @@ class BlockchainController {
     requestChainValidity() {
         this.app.get("/blocks/blockValidity/:key", async (req, res) => {
             if (req.params.key) {
-                const API_KEY = req.params.key;
-                if (API_KEY === 'api_key123') {
+                if (req.params.key.toString() === 'api_key123') {
                     let error_log = await this.blockchain.validateChain();
-                    return res.status(200).json(error_log);
+                    console.log("Error Log from requestChainValidity: ", error_log);
+                    if (error_log) {
+                        return res.status(200).json(error_log);
+                    } else {
+                        return res.status(200).json(error_log);
+                    }
                 }
             }
         });

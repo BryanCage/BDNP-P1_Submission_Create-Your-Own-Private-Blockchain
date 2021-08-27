@@ -1,7 +1,7 @@
 {
-  "name": "mydapp_express",
+  "name": "private_blockchain",
   "version": "1.0.0",
-  "description": "",
+  "description": "<strong>Project One Submisson: Create Your Own Private Blockchain</strong> - <strong style=\"color: dodgerblue;\">(Bryan Cage)</strong>",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,10 +12,20 @@
     "bitcoinjs-lib": "^5.2.0",
     "bitcoinjs-message": "^2.2.0",
     "body-parser": "^1.19.0",
+    "chalk": "^4.1.2",
     "crypto-js": "^4.1.1",
     "express": "^4.17.1",
     "hex2ascii": "0.0.3",
     "json": "^11.0.0",
-    "morgan": "^1.10.0"
-  }
+    "morgan": "^1.10.0",
+    "winston": "^3.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BryanCage/BDNP-P1_Submission_Create-Your-Own-Private-Blockchain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BryanCage/BDNP-P1_Submission_Create-Your-Own-Private-Blockchain/issues"
+  },
+  "homepage": "https://github.com/BryanCage/BDNP-P1_Submission_Create-Your-Own-Private-Blockchain#readme"
 }
